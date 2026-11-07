@@ -7,14 +7,15 @@ const MARKETS={
  "miami.tranquilitasspa.com":"miami",
  "nyc.tranquilitasspa.com":"nyc",
  "la.tranquilitasspa.com":"la",
- "uk.tranquilitasspa.com":"uk"
+ "uk.tranquilitasspa.com":"uk",
+ "stmartin.tranquilitasspa.com":"stmartin"
 };
 export async function onRequest(context){
  const incoming=new URL(context.request.url),host=incoming.hostname.toLowerCase(),preview=host.endsWith(".pages.dev");
  let market=MARKETS[host],path=incoming.pathname;
  if(preview){
    market="grenada";
-   const match=path.match(/^\/__preview\/(grenada|belize|bonaire|jamaica|bermuda|miami|nyc|la|uk)(\/.*)?$/);
+   const match=path.match(/^\/__preview\/(grenada|belize|bonaire|jamaica|bermuda|miami|nyc|la|uk|stmartin)(\/.*)?$/);
    if(match){market=match[1];path=match[2]||"/"}
  }
  if(!market)return new Response("Unknown market",{status:421,headers:{"Cache-Control":"no-store","X-Robots-Tag":"noindex"}});

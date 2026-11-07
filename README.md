@@ -1,6 +1,6 @@
 # Tranquilitas Grenada — shared Cloudflare Pages hosting
 
-This repository is the source of Grenada content and provides a shared deployment layer for the other eight destination sites. The Cloudflare account has reached the Pages project limit, so nine country/city domains share one Pages project while their content remains in separate GitHub repositories.
+This repository is the source of Grenada content and provides a shared deployment layer for the other nine destination sites. The Cloudflare account has reached the Pages project limit, so ten country/city domains share one Pages project while their content remains in separate GitHub repositories.
 
 ## Cloudflare Pages
 
@@ -22,6 +22,7 @@ The build script fetches the latest `main` of each public market repository, cop
 - New York City: `PearsonLegacyVentures/nyc` → https://nyc.tranquilitasspa.com/
 - Los Angeles: `PearsonLegacyVentures/la` → https://la.tranquilitasspa.com/
 - London: `PearsonLegacyVentures/UK` → https://uk.tranquilitasspa.com/
+- St. Martin / Sint Maarten: `PearsonLegacyVentures/smx` → https://stmartin.tranquilitasspa.com/
 
 ## Publishing caveat
 

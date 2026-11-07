@@ -2,7 +2,7 @@
 set -euo pipefail
 mkdir -p dist/sites/grenada
 tar --exclude='./.git' --exclude='./dist' --exclude='./functions' --exclude='./scripts' --exclude='./.github' --exclude='*.md' -cf - . | tar -xf - -C dist/sites/grenada
-for item in belize:belize bonaire:bonaire jamaica:jamaica bermuda:bermuda miami:miami nyc:nyc la:la uk:UK; do
+for item in belize:belize bonaire:bonaire jamaica:jamaica bermuda:bermuda miami:miami nyc:nyc la:la uk:UK stmartin:smx; do
   market="$(printf '%s' "$item" | cut -d: -f1)"
   repo="$(printf '%s' "$item" | cut -d: -f2)"
   temp="$(mktemp -d)"
@@ -26,5 +26,5 @@ cat >dist/404.html <<'EOF'
 <!doctype html><html lang="en"><meta charset="utf-8"><meta name="robots" content="noindex"><title>Page unavailable | Tranquilitas</title><body style="font-family:system-ui;padding:2rem"><h1>Page not found</h1><p>Return to your Tranquilitas destination website.</p><a href="https://www.tranquilitasspa.com/">Visit Tranquilitas</a></body></html>
 EOF
 pages="$(find dist/sites -name index.html | wc -l | tr -d ' ')"
-echo "Prepared $pages pages across nine websites."
-test "$pages" -ge 207
+echo "Prepared $pages pages across ten websites."
+test "$pages" -ge 235

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Sitemap: https://grenada.tranquilitasspa.com/sitemap.xml

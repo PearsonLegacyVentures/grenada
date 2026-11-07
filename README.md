@@ -1,46 +1,36 @@
-# Tranquilitas — Grenada
+# Tranquilitas Grenada — shared Cloudflare Pages hosting
 
-Dedicated enquiry-first destination website for Grenada.
-
-## Canonical
-https://grenada.tranquilitasspa.com/
+This repository is the source of Grenada content and provides a shared deployment layer for the other eight destination sites. The Cloudflare account has reached the Pages project limit, so nine country/city domains share one Pages project while their content remains in separate GitHub repositories.
 
 ## Cloudflare Pages
-Framework: none. Build command: none. Output directory: repository root. Production branch: main.
 
-## Booking policy
-WhatsApp and telephone are prominent. Enquiries require a selected treatment, guests, exact property, date and time. At least 6 hours in America/Grenada; request hours 10 AM–7 PM local time. Prices and therapist credentials must be confirmed before any booking. No verified local walk-in storefront is asserted.
+Project: grenada
+Build command: `bash scripts/build-shared.sh`
+Output directory: `dist`
+Production branch: `main`
 
-## Email channel
-Set **BOOKING_FROM_EMAIL** to `bookings@bahamasmassages.com` as a non-secret text variable on the Cloudflare Pages project. Add `RESEND_API_KEY` as a secret after verifying sender domain with Resend. The email endpoint returns a clear error until configured. Recipients are fixed in the server handler and are not environment variables.
+The build script fetches the latest `main` of each public market repository, copies static site files under `dist/sites/{market}`, and a Pages Functions host router serves the appropriate content for each custom hostname. `functions/api/enquiry.js` uses the hostname to set the correct market and timezone.
 
-## Pricing policy
-For future US/UK international price proposals, the user's requested internal benchmark is **current verified Nassau service base × 1.15**, rounded appropriately in local currency after current FX, staffing, licensing, tax, travel, and margin checks. **Do not publish unverified international rates.** This build is inquiry-only.
+## Market repositories and domains
 
-## Authenticity
-Only genuine Tranquilitas massage images are used to depict massage. The destination image is from https://unsplash.com/photos/coastal-town-with-colorful-buildings-on-a-peninsula-e4ZB90dskjs (Unsplash) and is credited. It does not purport to show a Tranquilitas appointment in Grenada.
+- Grenada: `PearsonLegacyVentures/grenada` → https://grenada.tranquilitasspa.com/
+- Belize: `PearsonLegacyVentures/belize` → https://belize.tranquilitasspa.com/
+- Bonaire: `PearsonLegacyVentures/bonaire` → https://bonaire.tranquilitasspa.com/
+- Jamaica: `PearsonLegacyVentures/jamaica` → https://jamaica.tranquilitasspa.com/
+- Bermuda: `PearsonLegacyVentures/bermuda` → https://bermuda.tranquilitasspa.com/
+- Miami: `PearsonLegacyVentures/miami` → https://miami.tranquilitasspa.com/
+- New York City: `PearsonLegacyVentures/nyc` → https://nyc.tranquilitasspa.com/
+- Los Angeles: `PearsonLegacyVentures/la` → https://la.tranquilitasspa.com/
+- London: `PearsonLegacyVentures/UK` → https://uk.tranquilitasspa.com/
 
-## Routes
-/
-/services/
-/areas/
-/about/
-/contact/
-/faq/
-/request/
-/privacy/
-/swedish-massage/
-/deep-tissue-massage/
-/couples-massage/
-/hotel-massage/
-/villa-massage/
-/group-wellness/
-/areas/grand-anse/
-/areas/st-georges/
-/areas/lance-aux-epines/
-/areas/morne-rouge/
-/areas/true-blue/
-/journal/
-/journal/hotel-and-villa-massage-guide/
-/journal/couples-wellness-planning-guide/
-/journal/private-massage-guest-checklist/
+## Publishing caveat
+
+**Pushing to a market repository does not automatically trigger the shared Grenada Pages build.** After changes to an individual market, redeploy the `grenada` Cloudflare Pages project to pick up the latest source. The individual repositories remain editable separately. Do not claim a market is live until that shared deployment succeeds.
+
+## Contact, pricing, and authentication
+
+All markets are enquiry-first and show no unverified local prices or instant booking confirmations. `BOOKING_FROM_EMAIL` should be `bookings@bahamasmassages.com`, with `RESEND_API_KEY` added privately when the sending domain has been verified. Email recipients are fixed to `info@massagebahamas.com` and `amar@massagebahamas.com`. The customer-facing form defaults to WhatsApp.
+
+## Testing
+
+Before domains are active, preview an individual site at `https://grenada-87p.pages.dev/__preview/<market>/`. Preview responses have `X-Robots-Tag: noindex`. Domain custom CNAMEs must first be registered in Cloudflare Pages and then added in Wix DNS.

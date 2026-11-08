@@ -1,37 +1,37 @@
-# Tranquilitas Grenada — shared Cloudflare Pages hosting
+# Tranquilitas Grenada — independent Cloudflare Pages deployment
 
-This repository is the source of Grenada content and provides a shared deployment layer for the other nine destination sites. The Cloudflare account has reached the Pages project limit, so ten country/city domains share one Pages project while their content remains in separate GitHub repositories.
+Source repository: `PearsonLegacyVentures/grenada`.
 
-## Cloudflare Pages
+## Production
 
-Project: grenada
-Build command: `bash scripts/build-shared.sh`
-Output directory: `dist`
-Production branch: `main`
+- Cloudflare Pages project: `grenada`
+- Production domain: https://grenada.tranquilitasspa.com/
+- Individual preview and production host: https://grenada-87p.pages.dev/
+- Production branch: `main`
+- Build command: none (static HTML)
+- Output directory: repository root (`.`)
+- Deployments: automatic from this repository, independent of other country and city sites
 
-The build script fetches the latest `main` of each public market repository, copies static site files under `dist/sites/{market}`, and a Pages Functions host router serves the appropriate content for each custom hostname. `functions/api/enquiry.js` uses the hostname to set the correct market and timezone.
+## Booking requests
 
-## Market repositories and domains
+The site is enquiry-first. A request must identify service, party size, property and local date/time, subject to a six-hour lead time. Enquiries are not confirmations and no unverified local prices are shown. WhatsApp is available as an alternative.
 
-- Grenada: `PearsonLegacyVentures/grenada` → https://grenada.tranquilitasspa.com/
-- Belize: `PearsonLegacyVentures/belize` → https://belize.tranquilitasspa.com/
-- Bonaire: `PearsonLegacyVentures/bonaire` → https://bonaire.tranquilitasspa.com/
-- Jamaica: `PearsonLegacyVentures/jamaica` → https://jamaica.tranquilitasspa.com/
-- Bermuda: `PearsonLegacyVentures/bermuda` → https://bermuda.tranquilitasspa.com/
-- Miami: `PearsonLegacyVentures/miami` → https://miami.tranquilitasspa.com/
-- New York City: `PearsonLegacyVentures/nyc` → https://nyc.tranquilitasspa.com/
-- Los Angeles: `PearsonLegacyVentures/la` → https://la.tranquilitasspa.com/
-- London: `PearsonLegacyVentures/UK` → https://uk.tranquilitasspa.com/
-- St. Martin / Sint Maarten: `PearsonLegacyVentures/smx` → https://stmartin.tranquilitasspa.com/
+`BOOKING_FROM_EMAIL` is set to `bookings@bahamasmassages.com`. Email delivery through `functions/api/enquiry.js` requires `RESEND_API_KEY`, which must be configured as a secret after sender verification. Notification recipients are fixed to `info@massagebahamas.com` and `amar@massagebahamas.com`. Do not store credentials in GitHub.
 
-## Publishing caveat
+## November 8, 2026 hosting separation
 
-**Pushing to a market repository does not automatically trigger the shared Grenada Pages build.** After changes to an individual market, redeploy the `grenada` Cloudflare Pages project to pick up the latest source. The individual repositories remain editable separately. Do not claim a market is live until that shared deployment succeeds.
+This Pages project previously routed content for ten sites as a temporary workaround for the Cloudflare Pages project limit. The other nine markets now have their own GitHub-linked Pages projects:
 
-## Contact, pricing, and authentication
+| Market | Pages project | GitHub repository |
+| --- | --- | --- |
+| Belize | `belize` | `PearsonLegacyVentures/belize` |
+| Bermuda | `bermuda` | `PearsonLegacyVentures/bermuda` |
+| Bonaire | `bonaire` | `PearsonLegacyVentures/bonaire` |
+| Jamaica | `jamaica` | `PearsonLegacyVentures/jamaica` |
+| Miami | `miami` | `PearsonLegacyVentures/miami` |
+| New York City | `nyc` | `PearsonLegacyVentures/nyc` |
+| Los Angeles | `la` | `PearsonLegacyVentures/la` |
+| London | `uk` | `PearsonLegacyVentures/UK` |
+| St. Martin / Sint Maarten | `stmartin` | `PearsonLegacyVentures/smx` |
 
-All markets are enquiry-first and show no unverified local prices or instant booking confirmations. `BOOKING_FROM_EMAIL` should be `bookings@bahamasmassages.com`, with `RESEND_API_KEY` added privately when the sending domain has been verified. Email recipients are fixed to `info@massagebahamas.com` and `amar@massagebahamas.com`. The customer-facing form defaults to WhatsApp.
-
-## Testing
-
-Before domains are active, preview an individual site at `https://grenada-87p.pages.dev/__preview/<market>/`. Preview responses have `X-Robots-Tag: noindex`. Domain custom CNAMEs must first be registered in Cloudflare Pages and then added in Wix DNS.
+The old `scripts/build-shared.sh` is retained in Git history only as a migration reference; it is no longer used by the live Cloudflare Pages project. Do not re-enable shared routing without reviewing all domain assignments first.

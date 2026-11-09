@@ -35,3 +35,6 @@ This Pages project previously routed content for ten sites as a temporary workar
 | St. Martin / Sint Maarten | `stmartin` | `PearsonLegacyVentures/smx` |
 
 The old `scripts/build-shared.sh` is retained in Git history only as a migration reference; it is no longer used by the live Cloudflare Pages project. Do not re-enable shared routing without reviewing all domain assignments first.
+
+## Published online bookings — 2026-11-09
+USD rates for 60/90 minutes: Swedish $127/$170, Deep Tissue $140/$180, Beach $155/$230, Couples $240/$360 for the pair. All eight Book links go to the exact Setmore service, with booking time selection there. Confirm a minimum six-hour advance window in Setmore policy. No local walk-in branch is advertised.
